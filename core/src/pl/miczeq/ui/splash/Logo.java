@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import pl.miczeq.assets.AssetsManager;
 import pl.miczeq.main.Main;
+import pl.miczeq.states.MenuState;
 
 /**
  * Created by Mikolaj on 25.10.2016.
@@ -34,7 +35,7 @@ public class Logo extends Image
             @Override
             public void run()
             {
-               // game.setScreen(new MenuState(game));
+                game.setScreen(new MenuState(game));
             }
         };
 
