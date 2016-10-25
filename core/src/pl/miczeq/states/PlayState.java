@@ -7,6 +7,7 @@ import pl.miczeq.main.Main;
 import pl.miczeq.ui.ClickCallback;
 import pl.miczeq.ui.play.EquationLabel;
 import pl.miczeq.ui.play.ResultButton;
+import pl.miczeq.ui.play.ScoreLabel;
 import pl.miczeq.ui.play.TimerLabel;
 
 /**
@@ -20,6 +21,7 @@ public class PlayState extends State
     private ResultButton rightButton;
     private EquationLabel equationLabel;
     private TimerLabel timerLabel;
+    private ScoreLabel scoreLabel;
 
     public PlayState(Main game)
     {
@@ -36,6 +38,13 @@ public class PlayState extends State
         initRightButton();
         initEquationLabel();
         initTimerLabel();
+        initScoreLabel();
+    }
+
+    private void initScoreLabel()
+    {
+        scoreLabel = new ScoreLabel();
+        stage.addActor(scoreLabel);
     }
 
     private void initTimerLabel()
