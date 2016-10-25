@@ -21,6 +21,7 @@ public class PlayState extends State
 {
     private boolean firstClick;
     private boolean onLeft;
+    private boolean over;
 
     private ResultButton leftButton;
     private ResultButton rightButton;
@@ -44,6 +45,7 @@ public class PlayState extends State
         firstClick = false;
         onLeft = MathUtils.randomBoolean();
         score = 0;
+        over = false;
 
         equationAlgorithm = new EquationAlgorithm();
 
@@ -73,15 +75,17 @@ public class PlayState extends State
             @Override
             public void onClick()
             {
-                firstClick = true;
+                if(!over)
+                {
+                    firstClick = true;
 
-                if(onLeft)
-                {
-                    goodClickAction();
-                }
-                else
-                {
-                    wrongClickAction(leftButton);
+                    if (onLeft)
+                    {
+                        goodClickAction();
+                    } else
+                    {
+                        wrongClickAction(leftButton);
+                    }
                 }
             }
         });
@@ -99,15 +103,17 @@ public class PlayState extends State
             @Override
             public void onClick()
             {
-                firstClick = true;
+                if(!over)
+                {
+                    firstClick = true;
 
-                if(!onLeft)
-                {
-                    goodClickAction();
-                }
-                else
-                {
-                    wrongClickAction(rightButton);
+                    if (!onLeft)
+                    {
+                        goodClickAction();
+                    } else
+                    {
+                        wrongClickAction(rightButton);
+                    }
                 }
             }
         });
@@ -138,6 +144,7 @@ public class PlayState extends State
 
     private void wrongClickAction(ResultButton button)
     {
+        over = true;
         equationLabel.setScale(0.5f);
         button.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         equationLabel.setText("YOU LOSE");
