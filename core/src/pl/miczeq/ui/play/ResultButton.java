@@ -39,7 +39,7 @@ public class ResultButton extends TextButton
     {
         clicked = false;
         this.setSize(this.getWidth() + 30.0f, this.getHeight() + 180.0f);
-        this.setPosition(Main.WIDTH / 2 - this.getWidth() / 2, Main.HEIGHT / 2);
+        this.setY(Main.HEIGHT / 2 - 230.0f);
         this.addListener(new ClickListener()
         {
             @Override
