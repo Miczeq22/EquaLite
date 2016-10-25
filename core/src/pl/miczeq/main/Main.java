@@ -1,6 +1,7 @@
 package pl.miczeq.main;
 
 import com.badlogic.gdx.Game;
+import pl.miczeq.states.LoadingState;
 
 public class Main extends Game
 {
@@ -10,7 +11,7 @@ public class Main extends Game
 
 	public void create ()
 	{
-
+		this.setScreen(new LoadingState(this));
 	}
 
 }
