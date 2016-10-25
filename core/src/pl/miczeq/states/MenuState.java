@@ -1,6 +1,9 @@
 package pl.miczeq.states;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import pl.miczeq.main.Main;
 import pl.miczeq.ui.menu.Border;
 import pl.miczeq.ui.menu.PlayLabel;
@@ -48,6 +51,27 @@ public class MenuState extends State
     public void update(float delta)
     {
         super.update(delta);
+
+        if(Gdx.input.isTouched() && leftBorder.isAnimDone())
+        {
+            playLabel.addAction(Actions.hide());
+            leftBorder.addAction(Actions.moveTo(0.0f, 0.0f, 2.0f, Interpolation.pow5));
+            rightBorder.addAction(Actions.sequence(Actions.moveTo(Main.WIDTH / 2, 0.0f, 2.0f, Interpolation.pow5), Actions.run(stateChange())));
+        }
+    }
+
+    private Runnable stateChange()
+    {
+        Runnable run = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                
+            }
+        };
+
+        return run;
     }
 
     public void render(float delta)
