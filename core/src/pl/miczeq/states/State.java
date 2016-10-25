@@ -51,7 +51,7 @@ public class State implements Screen
     @Override
     public void render(float delta)
     {
-        Gdx.gl.glClearColor(AssetsManager.colorGenerator.getColor().r, AssetsManager.colorGenerator.getColor().g, AssetsManager.colorGenerator.getColor().b, 1.0f);
+        Gdx.gl.glClearColor(AssetsManager.colorGenerator.getDarkerColor().r, AssetsManager.colorGenerator.getDarkerColor().g, AssetsManager.colorGenerator.getDarkerColor().b, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update(delta);
