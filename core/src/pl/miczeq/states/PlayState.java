@@ -133,7 +133,24 @@ public class PlayState extends State
 
     private void goodClickAction()
     {
-        equationAlgorithm.createSimpleEquation();
+        if(score >= 20)
+        {
+            boolean hard = MathUtils.randomBoolean();
+
+            if(hard)
+            {
+                equationAlgorithm.createHardEquation();
+            }
+            else
+            {
+                equationAlgorithm.createSimpleEquation();
+            }
+        }
+        else
+        {
+            equationAlgorithm.createSimpleEquation();
+        }
+
         equationLabel.setText(equationAlgorithm.getEquation());
         onLeft = MathUtils.randomBoolean();
         rightButton.setText(!onLeft ? equationAlgorithm.getResult() + "" : equationAlgorithm.getFakeResult() + "");
@@ -145,11 +162,21 @@ public class PlayState extends State
     private void wrongClickAction(ResultButton button)
     {
         over = true;
+        equationAlgorithm.setPow(false);
         equationLabel.setScale(0.5f);
         button.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         equationLabel.setText("YOU LOSE");
         equationLabel.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         firstClick = false;
+
+        int highscore = AssetsManager.preferences.getInteger(Main.GAME_HIGHSCORE);
+        AssetsManager.preferences.putInteger(Main.GAME_SCORE, score);
+        if(score > highscore)
+        {
+            AssetsManager.preferences.putInteger(Main.GAME_HIGHSCORE, score);
+        }
+        AssetsManager.preferences.flush();
+
         button.addAction(Actions.sequence(Actions.delay(2.0f), Actions.run(changeToGameOverState())));
     }
 
@@ -160,7 +187,7 @@ public class PlayState extends State
             @Override
             public void run()
             {
-                game.setScreen(new MenuState(game));
+                game.setScreen(new GameOverState(game));
             }
         };
 
@@ -173,6 +200,11 @@ public class PlayState extends State
 
         timerLabel.update(delta, firstClick);
         scoreLabel.setText("Score: " + score);
+
+        if(timerLabel.isTimerEnd())
+        {
+            wrongClickAction(leftButton);
+        }
     }
 
     public void render(float delta)
@@ -185,5 +217,15 @@ public class PlayState extends State
         batch.begin();
             stage.draw();
         batch.end();
+
+        if(equationAlgorithm.isPow())
+        {
+            batch.setShader(AssetsManager.fontShader);
+            batch.begin();
+                AssetsManager.font38.setColor(AssetsManager.colorGenerator.getColor());
+                AssetsManager.font38.draw(batch, "2", 200, Main.HEIGHT - 120);
+            batch.end();
+            batch.setShader(null);
+        }
     }
 }

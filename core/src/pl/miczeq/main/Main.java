@@ -10,6 +10,11 @@ public class Main extends Game
 	public static final int HEIGHT = 800;
 	public static final String TITLE = "EquaLite";
 
+	public static final String GAME_PREFS = "pl.miczeq.equalite.prefs";
+	public static final String GAME_HIGHSCORE = "pl.miczeq.equalite.prefs.highscore";
+	public static final String GAME_SCORE = "pl.miczeq.equalite.prefs.score";
+
+
 	public void create ()
 	{
 		this.setScreen(new LoadingState(this));

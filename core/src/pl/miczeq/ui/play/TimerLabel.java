@@ -14,6 +14,7 @@ public class TimerLabel extends Label
 {
     private float time;
     private ShapeRenderer sr;
+    private boolean timerEnd;
 
     public TimerLabel(ShapeRenderer sr)
     {
@@ -26,6 +27,7 @@ public class TimerLabel extends Label
     private void init()
     {
         time = 1.0f;
+        timerEnd = false;
 
         this.setPosition(20.0f, Main.HEIGHT - 60.0f);
         this.setSize(Main.WIDTH - 40.0f, 40.0f);
@@ -43,7 +45,12 @@ public class TimerLabel extends Label
     {
         if(start && time > 0.0f)
         {
-            time -= delta * 0.13f;
+            time -= delta * 0.3f;
+        }
+        else
+        {
+            if(start)
+            timerEnd = true;
         }
     }
 
@@ -85,5 +92,10 @@ public class TimerLabel extends Label
         batch.setShader(AssetsManager.fontShader);
         super.draw(batch, parentAlpha);
         batch.setShader(null);
+    }
+
+    public boolean isTimerEnd()
+    {
+        return timerEnd;
     }
 }

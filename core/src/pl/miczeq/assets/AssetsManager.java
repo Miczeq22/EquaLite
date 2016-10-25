@@ -1,11 +1,13 @@
 package pl.miczeq.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import pl.miczeq.main.Main;
 
 /**
  * Created by Mikolaj on 25.10.2016.
@@ -23,8 +25,12 @@ public class AssetsManager
     public static BitmapFont font100;
     public static BitmapFont font120;
 
+    public static Preferences preferences;
+
     public static void load()
     {
+        preferences = (Preferences) Gdx.app.getPreferences(Main.GAME_PREFS);
+
         manager = new AssetManager();
         colorGenerator = new ColorGenerator();
 
