@@ -47,6 +47,11 @@ public class TimerLabel extends Label
         }
     }
 
+    public void resetTimer()
+    {
+        time = 1.0f;
+    }
+
     public void draw(Batch batch, float parentAlpha)
     {
         sr.begin(ShapeRenderer.ShapeType.Filled);

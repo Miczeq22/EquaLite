@@ -1,8 +1,10 @@
 package pl.miczeq.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import pl.miczeq.assets.AssetsManager;
 import pl.miczeq.logic.EquationAlgorithm;
 import pl.miczeq.main.Main;
@@ -26,6 +28,8 @@ public class PlayState extends State
     private TimerLabel timerLabel;
     private ScoreLabel scoreLabel;
 
+    private int score;
+
     private EquationAlgorithm equationAlgorithm;
 
     public PlayState(Main game)
@@ -39,6 +43,7 @@ public class PlayState extends State
     {
         firstClick = false;
         onLeft = MathUtils.randomBoolean();
+        score = 0;
 
         equationAlgorithm = new EquationAlgorithm();
 
@@ -69,6 +74,15 @@ public class PlayState extends State
             public void onClick()
             {
                 firstClick = true;
+
+                if(onLeft)
+                {
+                    goodClickAction();
+                }
+                else
+                {
+                    wrongClickAction(leftButton);
+                }
             }
         });
 
@@ -86,6 +100,15 @@ public class PlayState extends State
             public void onClick()
             {
                 firstClick = true;
+
+                if(!onLeft)
+                {
+                    goodClickAction();
+                }
+                else
+                {
+                    wrongClickAction(rightButton);
+                }
             }
         });
 
@@ -104,7 +127,36 @@ public class PlayState extends State
 
     private void goodClickAction()
     {
-        
+        equationAlgorithm.createSimpleEquation();
+        equationLabel.setText(equationAlgorithm.getEquation());
+        onLeft = MathUtils.randomBoolean();
+        rightButton.setText(!onLeft ? equationAlgorithm.getResult() + "" : equationAlgorithm.getFakeResult() + "");
+        leftButton.setText(onLeft ? equationAlgorithm.getResult() + "" : equationAlgorithm.getFakeResult() + "");
+        timerLabel.resetTimer();
+        score++;
+    }
+
+    private void wrongClickAction(ResultButton button)
+    {
+        button.getStyle().fontColor = Color.RED;
+        equationLabel.setText("YOU LOSE !");
+        equationLabel.getStyle().fontColor = Color.RED;
+        firstClick = false;
+        button.addAction(Actions.sequence(Actions.delay(1.0f), Actions.run(changeToGameOverState())));
+    }
+
+    private Runnable changeToGameOverState()
+    {
+        Runnable run = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                System.out.println("YOU LOSE!");
+            }
+        };
+
+        return run;
     }
 
     public void update(float delta)
@@ -112,6 +164,7 @@ public class PlayState extends State
         super.update(delta);
 
         timerLabel.update(delta, firstClick);
+        scoreLabel.setText("Score: " + score);
     }
 
     public void render(float delta)
