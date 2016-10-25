@@ -41,7 +41,7 @@ public class LoadingState extends State
 
         if(AssetsManager.manager.update() && (progress >= AssetsManager.manager.getProgress() - 0.01f))
         {
-           // game.setScreen(new SplashState(game));
+            game.setScreen(new SplashState(game));
         }
     }
 

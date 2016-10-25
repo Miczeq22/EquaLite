@@ -1,6 +1,7 @@
 package pl.miczeq.main;
 
 import com.badlogic.gdx.Game;
+import pl.miczeq.assets.AssetsManager;
 import pl.miczeq.states.LoadingState;
 
 public class Main extends Game
@@ -12,6 +13,11 @@ public class Main extends Game
 	public void create ()
 	{
 		this.setScreen(new LoadingState(this));
+	}
+
+	public void dispose()
+	{
+		AssetsManager.dispose();
 	}
 
 }
