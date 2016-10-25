@@ -138,11 +138,12 @@ public class PlayState extends State
 
     private void wrongClickAction(ResultButton button)
     {
-        button.getStyle().fontColor = Color.RED;
-        equationLabel.setText("YOU LOSE !");
-        equationLabel.getStyle().fontColor = Color.RED;
+        equationLabel.setScale(0.5f);
+        button.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
+        equationLabel.setText("YOU LOSE");
+        equationLabel.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         firstClick = false;
-        button.addAction(Actions.sequence(Actions.delay(1.0f), Actions.run(changeToGameOverState())));
+        button.addAction(Actions.sequence(Actions.delay(2.0f), Actions.run(changeToGameOverState())));
     }
 
     private Runnable changeToGameOverState()
@@ -152,7 +153,7 @@ public class PlayState extends State
             @Override
             public void run()
             {
-                System.out.println("YOU LOSE!");
+                game.setScreen(new MenuState(game));
             }
         };
 
