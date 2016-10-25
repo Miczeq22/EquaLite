@@ -67,7 +67,7 @@ public class MenuState extends State
             @Override
             public void run()
             {
-                
+                game.setScreen(new PlayState(game));
             }
         };
 
