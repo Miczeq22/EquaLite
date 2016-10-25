@@ -2,7 +2,9 @@ package pl.miczeq.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.MathUtils;
 import pl.miczeq.assets.AssetsManager;
+import pl.miczeq.logic.EquationAlgorithm;
 import pl.miczeq.main.Main;
 import pl.miczeq.ui.ClickCallback;
 import pl.miczeq.ui.play.EquationLabel;
@@ -16,12 +18,15 @@ import pl.miczeq.ui.play.TimerLabel;
 public class PlayState extends State
 {
     private boolean firstClick;
+    private boolean onLeft;
 
     private ResultButton leftButton;
     private ResultButton rightButton;
     private EquationLabel equationLabel;
     private TimerLabel timerLabel;
     private ScoreLabel scoreLabel;
+
+    private EquationAlgorithm equationAlgorithm;
 
     public PlayState(Main game)
     {
@@ -33,6 +38,9 @@ public class PlayState extends State
     private void init()
     {
         firstClick = false;
+        onLeft = MathUtils.randomBoolean();
+
+        equationAlgorithm = new EquationAlgorithm();
 
         initLeftButton();
         initRightButton();
@@ -65,6 +73,7 @@ public class PlayState extends State
         });
 
         leftButton.setX(20.0f);
+        leftButton.setText(onLeft ? equationAlgorithm.getResult() + "" : equationAlgorithm.getFakeResult() + "");
 
         stage.addActor(leftButton);
     }
@@ -81,6 +90,7 @@ public class PlayState extends State
         });
 
         rightButton.setX(Main.WIDTH - rightButton.getWidth() - 20.0f);
+        rightButton.setText(!onLeft ? equationAlgorithm.getResult() + "" : equationAlgorithm.getFakeResult() + "");
 
         stage.addActor(rightButton);
     }
@@ -88,7 +98,13 @@ public class PlayState extends State
     private void initEquationLabel()
     {
         equationLabel = new EquationLabel(sr);
+        equationLabel.setText(equationAlgorithm.getEquation());
         stage.addActor(equationLabel);
+    }
+
+    private void goodClickAction()
+    {
+        
     }
 
     public void update(float delta)
