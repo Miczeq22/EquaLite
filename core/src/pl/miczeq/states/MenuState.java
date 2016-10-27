@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import pl.miczeq.main.Main;
 import pl.miczeq.ui.menu.Border;
+import pl.miczeq.ui.menu.LogoLabel;
 import pl.miczeq.ui.menu.PlayLabel;
 
 /**
@@ -17,6 +18,7 @@ public class MenuState extends State
     private Border leftBorder;
     private Border rightBorder;
     private PlayLabel playLabel;
+    private LogoLabel logoLabel;
 
     public MenuState(Main game)
     {
@@ -29,6 +31,13 @@ public class MenuState extends State
         initLeftBorder();
         initRightBorder();
         initPlayLabel();
+        initLogoLabel();
+    }
+
+    private void initLogoLabel()
+    {
+        logoLabel = new LogoLabel();
+        stage.addActor(logoLabel);
     }
 
     private void initLeftBorder()
@@ -55,6 +64,7 @@ public class MenuState extends State
 
         if(Gdx.input.isTouched() && leftBorder.isAnimDone())
         {
+            logoLabel.addAction(Actions.fadeOut(1.5f, Interpolation.pow2));
             playLabel.addAction(Actions.hide());
             leftBorder.addAction(Actions.moveTo(0.0f, 0.0f, 2.0f, Interpolation.pow5));
             rightBorder.addAction(Actions.sequence(Actions.moveTo(Main.WIDTH / 2, 0.0f, 2.0f, Interpolation.pow5), Actions.run(stateChange())));

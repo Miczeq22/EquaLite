@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -36,6 +38,8 @@ public class ScoreLabel extends Label
         bg.fill();
 
         this.getStyle().background = new Image(new Texture(bg)).getDrawable();
+
+        this.addAction(Actions.sequence(Actions.alpha(0.0f), Actions.fadeIn(1.0f, Interpolation.pow2)));
     }
 
     private static LabelStyle prepareLabelStyle()

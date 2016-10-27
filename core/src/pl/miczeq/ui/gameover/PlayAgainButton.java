@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -59,6 +61,8 @@ public class PlayAgainButton extends TextButton
         this.getStyle().down = skin.newDrawable("grayBG", new Color(0.75f, 0.75f, 0.75f, 1.0f));
 
         this.getLabel().setAlignment(Align.center);
+
+        this.addAction(Actions.sequence(Actions.alpha(0.0f), Actions.fadeIn(1.0f, Interpolation.pow2)));
     }
 
     private static TextButtonStyle prepareButtonStyle()
