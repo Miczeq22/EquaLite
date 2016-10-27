@@ -20,6 +20,7 @@ public class AssetsManager
     public static ShaderProgram fontShader;
 
     public static BitmapFont font38;
+    public static BitmapFont font45;
     public static BitmapFont font50;
     public static BitmapFont font80;
     public static BitmapFont font100;
@@ -29,7 +30,7 @@ public class AssetsManager
 
     public static void load()
     {
-        preferences = (Preferences) Gdx.app.getPreferences(Main.GAME_PREFS);
+        preferences = Gdx.app.getPreferences(Main.GAME_PREFS);
 
         manager = new AssetManager();
         colorGenerator = new ColorGenerator();
@@ -48,6 +49,12 @@ public class AssetsManager
 
         font38 = new BitmapFont(Gdx.files.internal("fonts/font38.fnt"), new TextureRegion(fontTexture), false);
         font38.getData().setScale(0.9f, 0.9f);
+
+        fontTexture = new Texture(Gdx.files.internal("fonts/font45.png"), true);
+        fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        font45 = new BitmapFont(Gdx.files.internal("fonts/font45.fnt"), new TextureRegion(fontTexture), false);
+        font45.getData().setScale(0.9f, 0.9f);
 
         fontTexture = new Texture(Gdx.files.internal("fonts/font50.png"), true);
         fontTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

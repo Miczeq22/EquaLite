@@ -35,7 +35,7 @@ public class PlayAgainButton extends TextButton
     private void init(final ClickCallback callback)
     {
         this.setSize((Main.WIDTH - 60.0f) / 2, this.getHeight() + 50.0f);
-        this.setPosition(20.0f, 280.0f);
+        this.setPosition(20.0f, 180.0f);
 
         this.addListener(new ClickListener()
         {

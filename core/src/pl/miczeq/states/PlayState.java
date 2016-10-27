@@ -1,6 +1,7 @@
 package pl.miczeq.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
@@ -135,15 +136,25 @@ public class PlayState extends State
     {
         if(score >= 20)
         {
-            boolean hard = MathUtils.randomBoolean();
+            int hard = MathUtils.random(0, 2);
 
-            if(hard)
+            switch(hard)
             {
-                equationAlgorithm.createHardEquation();
-            }
-            else
-            {
-                equationAlgorithm.createSimpleEquation();
+                case 0:
+                {
+                    equationAlgorithm.createSimpleEquation();
+                }break;
+
+
+                case 1:
+                {
+                    equationAlgorithm.createHardEquation();
+                }break;
+
+                case 2:
+                {
+                    equationAlgorithm.createBracketsEquation();
+                }break;
             }
         }
         else
@@ -164,7 +175,6 @@ public class PlayState extends State
         over = true;
         equationAlgorithm.setPow(false);
         equationLabel.setScale(0.5f);
-        button.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         equationLabel.setText("YOU LOSE");
         equationLabel.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
         firstClick = false;
@@ -177,7 +187,15 @@ public class PlayState extends State
         }
         AssetsManager.preferences.flush();
 
-        button.addAction(Actions.sequence(Actions.delay(2.0f), Actions.run(changeToGameOverState())));
+        if(button != null)
+        {
+            button.getStyle().fontColor = new Color(1.0f, 0.2f, 0.2f, 1.0f);
+            button.addAction(Actions.sequence(Actions.delay(2.0f), Actions.run(changeToGameOverState())));
+        }
+        else
+        {
+            equationLabel.addAction(Actions.sequence(Actions.delay(2.0f), Actions.run(changeToGameOverState())));
+        }
     }
 
     private Runnable changeToGameOverState()
@@ -203,7 +221,13 @@ public class PlayState extends State
 
         if(timerLabel.isTimerEnd())
         {
-            wrongClickAction(leftButton);
+            wrongClickAction(null);
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {
+            AssetsManager.colorGenerator.getRandomColor();
+            game.setScreen(new MenuState(game));
         }
     }
 

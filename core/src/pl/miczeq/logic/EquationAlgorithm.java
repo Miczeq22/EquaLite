@@ -85,6 +85,23 @@ public class EquationAlgorithm
         fakeResult = plus ? result + (MathUtils.random(1, 5)) : result - (MathUtils.random(1, 5));
     }
 
+    public void createBracketsEquation()
+    {
+        pow = false;
+        boolean plus = MathUtils.randomBoolean();
+
+        int a = MathUtils.random(1, 9);
+        int b = MathUtils.random(0, 9);
+        int c = MathUtils.random(1, 9);
+
+        equation = plus ? "(" + a + " + " + b + ")" + " x " + c : "(" + a + " - " + b + ")" + " x " + c;
+        result = plus ? (a + b) * c : (a - b) * c;
+
+        plus = MathUtils.randomBoolean();
+
+        fakeResult = plus ? result + MathUtils.random(1, 5) : result - MathUtils.random(1, 5);
+    }
+
     public String getEquation()
     {
         return equation;

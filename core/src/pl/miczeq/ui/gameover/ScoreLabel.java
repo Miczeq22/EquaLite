@@ -20,15 +20,15 @@ public class ScoreLabel extends Label
 
     public ScoreLabel(ShapeRenderer sr, int score, int highscore)
     {
-        super("You Lose\nScore:" + score + "\nHighscore:" + highscore, prepareLabelStyle());
+        super(score == highscore ? "You Lose\n\nScore:" + score + "\nHighscore:" + highscore + "\n\nNew Higscore!\nCongratulations!" : "You Lose\n\nScore:" + score + "\nHighscore:" + highscore, prepareLabelStyle());
         init();
         this.sr = sr;
     }
 
     private void init()
     {
-        this.setSize(Main.WIDTH - 40.0f, this.getHeight() + 100.0f);
-        this.setPosition(20.0f, Main.HEIGHT / 2);
+        this.setSize(Main.WIDTH - 40.0f, this.getHeight() + 150.0f);
+        this.setPosition(20.0f, Main.HEIGHT / 2 - 100.0f);
         this.setAlignment(Align.center);
 
         Pixmap bg = new Pixmap((int) this.getWidth(), (int) this.getHeight(), Pixmap.Format.RGBA8888);
@@ -41,7 +41,7 @@ public class ScoreLabel extends Label
     private static LabelStyle prepareLabelStyle()
     {
         LabelStyle style = new LabelStyle();
-        style.font = AssetsManager.font50;
+        style.font = AssetsManager.font45;
         style.fontColor = AssetsManager.colorGenerator.getColor();
 
         return style;

@@ -1,6 +1,7 @@
 package pl.miczeq.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import pl.miczeq.assets.AssetsManager;
 import pl.miczeq.main.Main;
@@ -66,6 +67,12 @@ public class GameOverState extends State
     public void update(float delta)
     {
         super.update(delta);
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {
+            AssetsManager.colorGenerator.getRandomColor();
+            game.setScreen(new MenuState(game));
+        }
     }
 
     public void render(float delta)

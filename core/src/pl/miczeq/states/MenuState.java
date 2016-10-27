@@ -1,6 +1,7 @@
 package pl.miczeq.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -57,6 +58,11 @@ public class MenuState extends State
             playLabel.addAction(Actions.hide());
             leftBorder.addAction(Actions.moveTo(0.0f, 0.0f, 2.0f, Interpolation.pow5));
             rightBorder.addAction(Actions.sequence(Actions.moveTo(Main.WIDTH / 2, 0.0f, 2.0f, Interpolation.pow5), Actions.run(stateChange())));
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {
+            Gdx.app.exit();
         }
     }
 

@@ -23,8 +23,8 @@ public class ColorGenerator
         oldColor = color;
         Random rand = new Random();
 
-        float red = rand.nextFloat() / 2.0f - 0.2f;
-        float green = rand.nextFloat()  - 0.2f;
+        float red = rand.nextFloat() / 2 - 0.1f;
+        float green = rand.nextFloat()  + 0.1f;
         float blue = rand.nextFloat() + 0.5f;
 
         color = new Color(red, green, blue, 1.0f);

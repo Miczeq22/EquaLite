@@ -31,6 +31,7 @@ public class State implements Screen
         sr = new ShapeRenderer();
 
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void createCamera()
